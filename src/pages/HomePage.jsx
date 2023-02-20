@@ -6,9 +6,13 @@ import { useState } from "react";
 const HomePage = () => {
   // ****************STATES*****************
   const [isSearch, setIsSearch] = useState(false);
+  const [isClipping, setIsClipping] = useState(false);
   // ****************STATE HANDLESR*****************
   const handleSearch = () => {
     setIsSearch(true);
+  };
+  const handleClipping = () => {
+    setIsClipping(true);
   };
   return (
     <Container fluid className="home-page">
@@ -81,39 +85,115 @@ const HomePage = () => {
         </Col>
         <Col md={8} className="main-chat-messages px-0">
           {!isSearch && (
-            <div className="user-bar d-flex justify-content-between py-3 px-3 align-items-center">
-              <Avatar
-                src={
-                  "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
-                }
-                width={50}
-                height={50}
-                alt="me"
-              />
-              <div className="d-flex align-items-center">
-                <Icon.Search
-                  onClick={handleSearch}
-                  size={25}
-                  className="mr-4"
-                />
-                <Dropdown>
-                  <Dropdown.Toggle>
-                    <Icon.ThreeDotsVertical size={25} />
-                  </Dropdown.Toggle>
+            <div>
+              <div className=" user-bar profile  d-flex justify-content-between py-3 px-3 align-items-center">
+                <div>
+                  <Avatar
+                    src={
+                      "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
+                    }
+                    width={50}
+                    height={50}
+                    alt="me"
+                  />
+                  <span className="ml-3 user-name">Louis Gadza</span>
+                </div>
+                <div className="d-flex align-items-center">
+                  <Icon.Search
+                    onClick={handleSearch}
+                    size={25}
+                    className="mr-4"
+                  />
+                  <Dropdown>
+                    <Dropdown.Toggle>
+                      <Icon.ThreeDotsVertical size={25} />
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item>Contact info</Dropdown.Item>
-                    <Dropdown.Item className="py-4">Close chat</Dropdown.Item>
-                    <Dropdown.Item>Clear messages</Dropdown.Item>
-                    <Dropdown.Item className="py-4">Delete chat</Dropdown.Item>
-                    <Dropdown.Item>Report</Dropdown.Item>
-                    <Dropdown.Item className="py-4">Block</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                    <Dropdown.Menu>
+                      <Dropdown.Item>Contact info</Dropdown.Item>
+                      <Dropdown.Item className="py-4">Close chat</Dropdown.Item>
+                      <Dropdown.Item>Clear messages</Dropdown.Item>
+                      <Dropdown.Item className="py-4">
+                        Delete chat
+                      </Dropdown.Item>
+                      <Dropdown.Item>Report</Dropdown.Item>
+                      <Dropdown.Item className="py-4">Block</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </div>
+
+              {[...Array(6)].map((text, index) => {
+                return (
+                  <span
+                    key={index}
+                    className="chat mt-2 mx-5 px-2 py-2 d-flex "
+                  >
+                    <span>Today I feel like crap yoh my boss even noticed</span>
+                    <span className="text-time d-flex justify-content-end pt-2 ml-2">
+                      20:50
+                    </span>
+                  </span>
+                );
+              })}
+              <div className="space-between">
+                {[...Array(10)].map((text, index) => {
+                  return (
+                    <div key={index} className="d-flex justify-content-end">
+                      <span className=" my-chat mt-2 mx-5 px-2 py-2 d-flex ">
+                        <span>
+                          Today I feel like crap yoh my boss even noticed
+                        </span>
+                        <span className="text-time d-flex justify-content-end pt-2 ml-2">
+                          20:50
+                        </span>
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="user-bar text-input d-flex justify-content-between py-3 px-3 align-items-center">
+                <div className="d-flex">
+                  <Icon.EmojiSmile size={25} className="mr-3" />
+                  <div className="clip-files">
+                    <Icon.Paperclip size={25} />
+                    <div className="d-flex files flex-column">
+                      <span className="mt-3 clip-image ">
+                        {" "}
+                        <Icon.ImageFill size={30} className="my-3" />
+                      </span>
+                      <span className="mt-3 clip-camera ">
+                        {" "}
+                        <Icon.CameraFill size={30} className="my-3" />
+                      </span>
+                      <span className="mt-3 clip-file ">
+                        {" "}
+                        <Icon.FileEarmarkFill size={30} className="my-3" />
+                      </span>
+                      <span className="mt-3 clip-contact ">
+                        {" "}
+                        <Icon.PersonFill size={30} />
+                      </span>
+                    </div>
+                  </div>{" "}
+                </div>
+
+                <Form.Group className="mb-2 w-100 mx-4  text-bar mt-2 ">
+                  <Form.Control
+                    type="text"
+                    placeholder="Type a meesage"
+                    className="pl-5"
+                  />
+                </Form.Group>
+
+                <div className="d-flex align-items-center">
+                  <Icon.MicFill size={25} />
+                </div>
               </div>
             </div>
           )}
-          <div className={`search-messages ${isSearch ? "show" : "hide"}`}>
+          <div className={`search-messages ${isSearch ? "show" : ""}`}>
             <div className="user-bar d-flex  py-4 px-3 align-items-center">
               <Icon.X onClick={() => setIsSearch(false)} size={30} />
               <span className="ml-5">Seach Messages</span>

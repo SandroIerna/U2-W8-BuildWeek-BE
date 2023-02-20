@@ -74,18 +74,21 @@ body {
   background-color: rgb(32, 44, 51);
   height: 70px;
 }
-.search-bar input {
-  background-color: rgb(32, 44, 51);
-  border: none;
-}
-.search-bar input:active {
-  background-color: rgb(32, 44, 51);
-  border: none;
-}
+.search-bar input,
+.search-bar input:active,
 .search-bar input:focus {
   background-color: rgb(32, 44, 51);
   border: none;
+  color: white;
 }
+.text-bar input,
+.text-bar input:active,
+.text-bar input:focus {
+  background-color: rgb(42, 57, 66);
+  border: none;
+  color: white;
+}
+
 .search-bar {
   position: relative;
 }
@@ -153,7 +156,14 @@ body {
   background-color: rgb(32, 44, 51);
 }
 .main-chat-messages {
+  height: 100vh !important;
   background-image: url("https://about.me/cdn-cgi/image/q=80,dpr=1,f=auto,fit=cover,w=1200,h=630,gravity=auto/https://assets.about.me/background/users/w/h/a/whatsappstatus_1406877911_28.jpg");
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.main-chat-messages .user-bar.profile {
+  position: sticky;
+  top: 0;
 }
 .search-messages {
   background-color: rgb(17, 27, 33);
@@ -162,9 +172,78 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  display: none;
   transform: translateX(100%);
-  transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.2s ease-out;
 }
 .search-messages.show {
   transform: translateX(0);
+  display: block;
+}
+.chat {
+  background-color: rgb(32, 44, 51);
+  width: fit-content;
+  border-radius: 5px;
+}
+.my-chat {
+  background-color: rgb(0, 92, 75);
+  width: fit-content;
+  border-radius: 5px;
+  margin-right: auto;
+}
+.text-time {
+  font-size: 0.8rem;
+}
+.user-bar.text-input {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 66.667%;
+}
+.space-between {
+  margin-bottom: 95px;
+}
+.clip-files {
+  position: relative;
+}
+.files {
+  position: absolute;
+  bottom: 70px;
+  left: -10px;
+}
+.clip-contact {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(7, 149, 220);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clip-file {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(95, 102, 205);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clip-camera {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(236, 64, 122);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clip-image {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(172, 68, 207);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
