@@ -12,7 +12,7 @@ const HomePage = () => {
     setIsSearch(true);
   };
   const handleClipping = () => {
-    setIsClipping(true);
+    isClipping ? setIsClipping(false) : setIsClipping(true);
   };
   return (
     <Container fluid className="home-page">
@@ -157,25 +157,27 @@ const HomePage = () => {
                 <div className="d-flex">
                   <Icon.EmojiSmile size={25} className="mr-3" />
                   <div className="clip-files">
-                    <Icon.Paperclip size={25} />
-                    <div className="d-flex files flex-column">
-                      <span className="mt-3 clip-image ">
-                        {" "}
-                        <Icon.ImageFill size={30} className="my-3" />
-                      </span>
-                      <span className="mt-3 clip-camera ">
-                        {" "}
-                        <Icon.CameraFill size={30} className="my-3" />
-                      </span>
-                      <span className="mt-3 clip-file ">
-                        {" "}
-                        <Icon.FileEarmarkFill size={30} className="my-3" />
-                      </span>
-                      <span className="mt-3 clip-contact ">
-                        {" "}
-                        <Icon.PersonFill size={30} />
-                      </span>
-                    </div>
+                    <Icon.Paperclip onClick={handleClipping} size={25} />
+                    {isClipping && (
+                      <div className="d-flex files flex-column">
+                        <span className="mt-3 clip-image ">
+                          {" "}
+                          <Icon.ImageFill size={30} className="my-3" />
+                        </span>
+                        <span className="mt-3 clip-camera ">
+                          {" "}
+                          <Icon.CameraFill size={30} className="my-3" />
+                        </span>
+                        <span className="mt-3 clip-file ">
+                          {" "}
+                          <Icon.FileEarmarkFill size={30} className="my-3" />
+                        </span>
+                        <span className="mt-3 clip-contact ">
+                          {" "}
+                          <Icon.PersonFill size={30} />
+                        </span>
+                      </div>
+                    )}
                   </div>{" "}
                 </div>
 
