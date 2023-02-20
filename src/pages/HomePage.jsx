@@ -5,7 +5,12 @@ import { useState } from "react";
 
 const HomePage = () => {
   // ****************STATES*****************
+  const [name, setName] = useState("Louis");
+  const [about, setAbout] = useState("Eagle all the way");
   const [isSearch, setIsSearch] = useState(false);
+  const [isProfile, setIsProfile] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingAbout, setIsEditingAbout] = useState(false);
   const [isClipping, setIsClipping] = useState(false);
   // ****************STATE HANDLESR*****************
   const handleSearch = () => {
@@ -18,48 +23,10 @@ const HomePage = () => {
     <Container fluid className="home-page">
       <Row>
         <Col md={4} className="user-list px-0">
-          <div className="user-bar-stick pb-2">
-            <div className="user-bar d-flex justify-content-between py-3 px-3 align-items-center">
-              <Avatar
-                src={
-                  "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
-                }
-                width={50}
-                height={50}
-                alt="me"
-              />
-              <div className="d-flex align-items-center">
-                <Icon.PeopleFill size={25} />
-                <Icon.PlusCircleDotted size={25} className="mx-4" />
-                <Icon.ChatLeftTextFill size={25} className="mr-4" />
-                <Dropdown>
-                  <Dropdown.Toggle>
-                    <Icon.ThreeDotsVertical size={25} />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item>New group</Dropdown.Item>
-                    <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </div>
-
-            <Form.Group className="mb-3 mx-4 mt-2 search-bar">
-              <Form.Control
-                type="search"
-                placeholder="Search or start a new chat"
-                className="pl-5"
-              />
-
-              <Icon.Search size={20} className="search-icon" />
-            </Form.Group>
-          </div>
-          {[...Array(15)].map((user, index) => {
-            return (
-              <div className="chat-list-bar d-flex justify-content-between py-2 px-3">
-                <div className="d-flex">
+          {!isProfile && (
+            <div>
+              <div className="user-bar-stick pb-2">
+                <div className="user-bar d-flex justify-content-between py-3 px-3 align-items-center">
                   <Avatar
                     src={
                       "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
@@ -68,20 +35,170 @@ const HomePage = () => {
                     height={50}
                     alt="me"
                   />
-                  <div className="ml-4">
-                    <div className="d-flex user-name">Steve</div>
-                    <div className="d-flex">Hey man</div>
+                  <div className="d-flex align-items-center">
+                    <Icon.PeopleFill size={25} />
+                    <Icon.PlusCircleDotted size={25} className="mx-4" />
+                    <Icon.ChatLeftTextFill size={25} className="mr-4" />
+                    <Dropdown>
+                      <Dropdown.Toggle>
+                        <Icon.ThreeDotsVertical size={25} />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item>New group</Dropdown.Item>
+                        <Dropdown.Item>Settings</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                 </div>
-                <div className="ml-3">
-                  <div>
-                    <div className="mr-auto">Yesterday</div>
-                    <div className="messages-notifications">24</div>
-                  </div>
-                </div>
+
+                <Form.Group className="mb-3 mx-4 mt-2 search-bar">
+                  <Form.Control
+                    type="search"
+                    placeholder="Search or start a new chat"
+                    className="pl-5"
+                  />
+
+                  <Icon.Search size={20} className="search-icon" />
+                </Form.Group>
               </div>
-            );
-          })}
+              {[...Array(15)].map((user, index) => {
+                return (
+                  <div className="chat-list-bar d-flex justify-content-between py-2 px-3">
+                    <div className="d-flex">
+                      <Avatar
+                        onClick={() => setIsProfile(true)}
+                        src={
+                          "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
+                        }
+                        width={50}
+                        height={50}
+                        alt="me"
+                      />
+                      <div className="ml-4">
+                        <div className="d-flex user-name">Steve</div>
+                        <div className="d-flex">Hey man</div>
+                      </div>
+                    </div>
+                    <div className="ml-3">
+                      <div>
+                        <div className="mr-auto">Yesterday</div>
+                        <div className="messages-notifications">24</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          <div className={`my-profile ${isProfile ? "show" : ""}`}>
+            <div className="user-bar d-flex  py-3 px-3 align-items-center">
+              <Icon.ArrowLeft onClick={() => setIsProfile(false)} size={30} />
+              <span className="ml-5">Profile</span>
+            </div>
+            <div>
+              <Dropdown>
+                <Dropdown.Toggle>
+                  <div className="profile-picture">
+                    <Avatar
+                      src={
+                        "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
+                      }
+                      width={200}
+                      height={200}
+                      alt="me"
+                    />
+                    <div className="d-flex flex-column justify-content-center align-items-center change-profile">
+                      <Icon.CameraFill size={35} />
+                      <span>CHANGE</span>
+                      <span>PROFILE PICTURE</span>
+                    </div>
+                  </div>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item className="py-3">View Photo</Dropdown.Item>
+                  <Dropdown.Item className="py-3">Close chat</Dropdown.Item>
+                  <Dropdown.Item className="py-3">Take photo</Dropdown.Item>
+                  <Dropdown.Item className="py-3">Upload Photo</Dropdown.Item>
+                  <Dropdown.Item className="py-3">Report</Dropdown.Item>
+                  <Dropdown.Item className="py-3">Remove Photo</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <div className="d-flex px-4 ">
+                <span className="text-success">Your name</span>
+              </div>
+              <div className="d-flex justify-content-between py-0    px-4 align-items-center">
+                <Form.Group className=" w-100  nickname-text-bar mt-2 ">
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="py-0 pl-0"
+                  />
+                </Form.Group>
+                {!isEditing && (
+                  <span>
+                    <Icon.PencilFill
+                      onClick={() => setIsEditing(true)}
+                      size={20}
+                    />
+                  </span>
+                )}
+                {isEditing && (
+                  <span className="d-flex align-items-center">
+                    <span>{name.length}</span>
+                    <Icon.EmojiSmile className="mx-3" size={20} />
+                    <Icon.Check2
+                      onClick={() => setIsEditing(false)}
+                      size={20}
+                    />
+                  </span>
+                )}
+              </div>
+              {isEditing && <hr className="mx-4  my-0 user-profile-name" />}
+              <div className="my-5">
+                <span className="d-flex mx-4">
+                  This name will be visible to your WhatsApp contacts.
+                </span>
+              </div>
+              <div className="d-flex px-4 ">
+                <span className="text-success">About</span>
+              </div>
+              <div className="d-flex justify-content-between py-0    px-4 align-items-center">
+                <Form.Group className=" w-100  nickname-text-bar mt-2 ">
+                  <Form.Control
+                    type="text"
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                    className="py-0 pl-0"
+                  />
+                </Form.Group>
+                {!isEditingAbout && (
+                  <span>
+                    <Icon.PencilFill
+                      onClick={() => setIsEditingAbout(true)}
+                      size={20}
+                    />
+                  </span>
+                )}
+                {isEditingAbout && (
+                  <span className="d-flex align-items-center">
+                    <span>{about.length}</span>
+                    <Icon.EmojiSmile className="mx-3" size={20} />
+                    <Icon.Check2
+                      onClick={() => setIsEditingAbout(false)}
+                      size={20}
+                    />
+                  </span>
+                )}
+              </div>
+              {isEditingAbout && (
+                <hr className="mx-4  my-0 user-profile-name" />
+              )}
+            </div>
+          </div>
         </Col>
         <Col md={8} className="main-chat-messages px-0">
           {!isSearch && (
@@ -110,14 +227,18 @@ const HomePage = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item>Contact info</Dropdown.Item>
-                      <Dropdown.Item className="py-4">Close chat</Dropdown.Item>
-                      <Dropdown.Item>Clear messages</Dropdown.Item>
-                      <Dropdown.Item className="py-4">
+                      <Dropdown.Item className="py-3">
+                        Contact info
+                      </Dropdown.Item>
+                      <Dropdown.Item className="py-3">Close chat</Dropdown.Item>
+                      <Dropdown.Item className="py-3">
+                        Clear messages
+                      </Dropdown.Item>
+                      <Dropdown.Item className="py-3">
                         Delete chat
                       </Dropdown.Item>
-                      <Dropdown.Item>Report</Dropdown.Item>
-                      <Dropdown.Item className="py-4">Block</Dropdown.Item>
+                      <Dropdown.Item className="py-3">Report</Dropdown.Item>
+                      <Dropdown.Item className="py-3">Block</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
