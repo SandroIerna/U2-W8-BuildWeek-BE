@@ -51,7 +51,7 @@ const SignUp = () => {
   };
 
   return (
-    <Container className="sign-page ">
+    <Container className="sign-page">
       <Row>
         <Col className="d-flex flex-column justify-content-start ml-5">
           <span className="d-flex my-5 h2">Use WhatsApp on your computer</span>

@@ -50,8 +50,11 @@ body {
 }
 .sign-page {
   background-color: white;
-  transform: translateY(-30%);
+  position: absolute;
+  top: 20%;
   border-radius: 3px;
+  left: 0;
+  right: 0;
 }
 .sign-page .h2 {
   font-weight: lighter;
