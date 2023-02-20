@@ -67,11 +67,22 @@ body {
   height: 100vh;
   background-color: rgb(17, 27, 33);
   border-right: 1px solid rgb(42, 57, 66);
+  overflow: scroll;
 }
-.home-page .user-list .user-bar {
+
+.user-bar {
   background-color: rgb(32, 44, 51);
+  height: 70px;
 }
 .search-bar input {
+  background-color: rgb(32, 44, 51);
+  border: none;
+}
+.search-bar input:active {
+  background-color: rgb(32, 44, 51);
+  border: none;
+}
+.search-bar input:focus {
   background-color: rgb(32, 44, 51);
   border: none;
 }
@@ -82,4 +93,78 @@ body {
   position: absolute;
   left: 10px;
   top: 25%;
+}
+.user-name {
+  font-weight: bold;
+}
+.messages-notifications {
+  background-color: rgb(0, 168, 132);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dropdown {
+  background-color: transparent !important;
+  border: none;
+  box-shadow: none;
+}
+.dropdown-toggle.btn.btn-primary {
+  background-color: transparent !important;
+  border: none;
+  box-shadow: none;
+  outline: none !important;
+}
+
+.dropdown-menu.show {
+  background-color: rgb(32, 44, 51);
+  width: 20vw;
+}
+.dropdown-item {
+  color: white !important;
+}
+.dropdown-toggle.btn.btn-primary:focus,
+.dropdown-toggle.btn.btn-primary:hover,
+.dropdown-toggle.btn.btn-primary:active {
+  background-color: transparent !important;
+  border: none !important ;
+  box-shadow: none !important;
+  outline: none;
+}
+.dropdown-toggle.btn.btn-primary:focus {
+  background-color: rgb(55, 66, 72) !important;
+  border-radius: 50%;
+}
+.user-bar .dropdown {
+  width: fit-content !important;
+}
+.dropdown-toggle::after {
+  display: none !important;
+  background-color: transparent !important;
+}
+.user-bar-stick {
+  position: sticky;
+  top: 0;
+  background-color: rgb(17, 27, 33);
+}
+.chat-list-bar:hover {
+  background-color: rgb(32, 44, 51);
+}
+.main-chat-messages {
+  background-image: url("https://about.me/cdn-cgi/image/q=80,dpr=1,f=auto,fit=cover,w=1200,h=630,gravity=auto/https://assets.about.me/background/users/w/h/a/whatsappstatus_1406877911_28.jpg");
+}
+.search-messages {
+  background-color: rgb(17, 27, 33);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.search-messages.show {
+  transform: translateX(0);
 }
