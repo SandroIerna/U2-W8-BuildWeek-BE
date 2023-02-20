@@ -100,7 +100,7 @@ const SignIn = () => {
           />
         </Col>
       </Form.Group>
-      <Col className=" mb-3 ">
+      <Col className=" mb-3 pl-0 ">
         <Link to="" className="w-100">
           <Button
             disabled={!email || !password}
@@ -116,7 +116,7 @@ const SignIn = () => {
       <span className="mb-2">
         <strong>OR</strong>
       </span>
-      <Col className=" d-flex mb-3 ">
+      <Col className=" d-flex mb-3 pl-0 ">
         <a
           href={`${process.env.REACT_APP_BE_PROD_URL}/users/googleLogin`}
           className="w-100"
@@ -128,7 +128,7 @@ const SignIn = () => {
         </a>
       </Col>
 
-      <div className=" py-3">
+      <Col className=" py-3 pl-0">
         <span className="py-3">You don't have an account yet?</span>
         <hr />
         <Link>
@@ -136,7 +136,7 @@ const SignIn = () => {
             Sign Up
           </Button>
         </Link>
-      </div>
+      </Col>
     </>
   );
 };
