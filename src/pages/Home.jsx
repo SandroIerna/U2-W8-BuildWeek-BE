@@ -1,11 +1,11 @@
 import NavigationBar from "../components/NavigationBar";
-import SignUp from "../components/SignUp";
+import LoginPage from "../components/LoginPage";
 
 const Home = () => {
   return (
     <>
       <NavigationBar />
-      <SignUp />
+      <LoginPage />
     </>
   );
 };
