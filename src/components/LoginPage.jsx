@@ -6,6 +6,9 @@ import * as Icon from "react-bootstrap-icons";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 const LoginPage = () => {
+  const [showSignUp, setShowSignUp] = useState(false);
+  const handleShowSignUp = () =>
+    showSignUp ? setShowSignUp(false) : setShowSignUp(true);
   return (
     <Container className="sign-page">
       <Row>
@@ -29,8 +32,8 @@ const LoginPage = () => {
           </div>
         </Col>
         <Col className="mb-5">
-          {/* <SignUp/> */}
-          <SignIn />
+          {showSignUp && <SignUp SignIn={handleShowSignUp} />}
+          {!showSignUp && <SignIn signUp={handleShowSignUp} />}
         </Col>
       </Row>
     </Container>

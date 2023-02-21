@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import * as Icon from "react-bootstrap-icons";
-const SignUp = () => {
+const SignUp = ({ signIn }) => {
   // ***************** States****************
   const [isSignIn, setIsSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
@@ -156,7 +156,7 @@ const SignUp = () => {
       <div className="mb-3">
         <span>
           I already have an account?{" "}
-          <Link onClick={() => setIsSignIn(true)}>Sign in</Link>
+          <Link onClick={() => signIn()}>Sign in</Link>
         </span>
       </div>
     </>

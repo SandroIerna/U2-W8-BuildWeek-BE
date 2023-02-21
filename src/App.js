@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
         {/* <HomeLogIn /> */}
         <Routes>
-          {/* <Route element={<HomeLogIn/>} path="login"/> */}
-          <Route element={<HomePage />} path="/" />
+          <Route element={<HomeLogIn />} path="/" />
+          <Route element={<HomePage />} path="/chats" />
         </Routes>
       </BrowserRouter>
     </div>

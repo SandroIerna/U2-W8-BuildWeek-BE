@@ -15,7 +15,7 @@ import * as Icon from "react-bootstrap-icons";
 // import Spinner from "../../components/Spinner";
 // import { getMe } from "../../redux/actions";
 
-const SignIn = () => {
+const SignIn = ({ signUp }) => {
   const dispatch = useDispatch();
 
   const [sign_in, setSign_in] = useState(false);
@@ -101,7 +101,7 @@ const SignIn = () => {
         </Col>
       </Form.Group>
       <Col className=" mb-3 pl-0 ">
-        <Link to="" className="w-100">
+        <Link to="/chats" className="w-100">
           <Button
             disabled={!email || !password}
             className="px-4 w-100"
@@ -131,7 +131,7 @@ const SignIn = () => {
       <Col className=" py-3 pl-0">
         <span className="py-3">You don't have an account yet?</span>
         <hr />
-        <Link>
+        <Link onClick={() => signUp()}>
           <Button className="px-4  w-100" variant="success">
             Sign Up
           </Button>
