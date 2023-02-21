@@ -2,6 +2,7 @@ import { Col, Container, Form, Dropdown, Row } from "react-bootstrap";
 import Avatar from "../components/Avatar";
 import * as Icon from "react-bootstrap-icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   // ****************STATES*****************
@@ -12,6 +13,7 @@ const HomePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingAbout, setIsEditingAbout] = useState(false);
   const [isClipping, setIsClipping] = useState(false);
+  console.log(isProfile);
   // ****************STATE HANDLESR*****************
   const handleSearch = () => {
     setIsSearch(true);
@@ -27,14 +29,16 @@ const HomePage = () => {
             <div>
               <div className="user-bar-stick pb-2">
                 <div className="user-bar d-flex justify-content-between py-3 px-3 align-items-center">
-                  <Avatar
-                    src={
-                      "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
-                    }
-                    width={50}
-                    height={50}
-                    alt="me"
-                  />
+                  <Link onClick={() => setIsProfile(true)}>
+                    <Avatar
+                      src={
+                        "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
+                      }
+                      width={50}
+                      height={50}
+                      alt="me"
+                    />
+                  </Link>
                   <div className="d-flex align-items-center">
                     <Icon.PeopleFill size={25} />
                     <Icon.PlusCircleDotted size={25} className="mx-4" />
@@ -68,7 +72,6 @@ const HomePage = () => {
                   <div className="chat-list-bar d-flex justify-content-between py-2 px-3">
                     <div className="d-flex">
                       <Avatar
-                        onClick={() => setIsProfile(true)}
                         src={
                           "https://www.maxpixel.net/static/photo/640/Icon-Avatar-Person-Business-Male-Profile-User-5359553.png"
                         }
@@ -78,7 +81,15 @@ const HomePage = () => {
                       />
                       <div className="ml-4">
                         <div className="d-flex user-name">Steve</div>
-                        <div className="d-flex">Hey man</div>
+                        <div className="d-flex">
+                          <span className="ml-1">
+                            <Icon.CheckAll
+                              size={20}
+                              color="rgb(83, 189, 235)"
+                            />
+                          </span>
+                          <span>Hey man</span>
+                        </div>
                       </div>
                     </div>
                     <div className="ml-3">
@@ -252,7 +263,10 @@ const HomePage = () => {
                   >
                     <span>Today I feel like crap yoh my boss even noticed</span>
                     <span className="text-time d-flex justify-content-end pt-2 ml-2">
-                      20:50
+                      <span>20:50</span>
+                      <span className="ml-1">
+                        <Icon.CheckAll size={20} color="rgb(83, 189, 235)" />
+                      </span>
                     </span>
                   </span>
                 );
@@ -266,7 +280,10 @@ const HomePage = () => {
                           Today I feel like crap yoh my boss even noticed
                         </span>
                         <span className="text-time d-flex justify-content-end pt-2 ml-2">
-                          20:50
+                          <span>20:50</span>
+                          <span className="ml-1">
+                            <Icon.Check size={20} color="gray" />
+                          </span>
                         </span>
                       </span>
                     </div>
