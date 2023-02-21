@@ -212,6 +212,18 @@ body {
   background-color: rgb(32, 44, 51);
   width: fit-content;
   border-radius: 5px;
+  /* overflow: hidden; */
+}
+.text-options {
+  transform: translateX(200%);
+  height: 0px;
+  width: 0px;
+  transition: transform 0.1s ease-in;
+  visibility: hidden;
+}
+.chat:hover .text-options {
+  transform: translateX(-230%);
+  visibility: visible;
 }
 .my-chat {
   background-color: rgb(0, 92, 75);
@@ -312,4 +324,33 @@ body {
 .user-profile-name {
   background-color: rgb(6, 207, 156);
   height: 1.5px;
+}
+.blue-tick {
+  position: relative;
+}
+.text-options {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  padding: 3px;
+  z-index: 2;
+}
+.text-time .dropdown-toggle.btn.btn-primary:focus {
+  /* background-color: rgb(55, 66, 72) !important; */
+  border-radius: 50%;
+  background-image: linear-gradient(
+    rgb(32, 44, 51),
+    rgb(32, 44, 51),
+    rgb(32, 44, 51),
+    rgb(32, 44, 51),
+    transparent
+  );
+}
+.text-options-arrow {
+  background-image: linear-gradient(
+    rgb(32, 44, 51),
+    rgb(32, 44, 51),
+    rgb(32, 44, 51),
+    transparent
+  );
 }

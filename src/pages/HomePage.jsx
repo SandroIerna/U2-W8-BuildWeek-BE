@@ -264,7 +264,33 @@ const HomePage = () => {
                     <span>Today I feel like crap yoh my boss even noticed</span>
                     <span className="text-time d-flex justify-content-end pt-2 ml-2">
                       <span>20:50</span>
-                      <span className="ml-1">
+                      <span className="ml-1 blue-tick">
+                        <Dropdown className="text-options">
+                          <Dropdown.Toggle>
+                            <Icon.CaretDown
+                              className="text-options-arrow"
+                              size={20}
+                            />
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            <Dropdown.Item className="py-3">
+                              Reply
+                            </Dropdown.Item>
+                            <Dropdown.Item className="py-3">
+                              React to Message
+                            </Dropdown.Item>
+                            <Dropdown.Item className="py-3">
+                              Forward message
+                            </Dropdown.Item>
+                            <Dropdown.Item className="py-3">
+                              Delete message
+                            </Dropdown.Item>
+                            <Dropdown.Item className="py-3">
+                              Report
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
                         <Icon.CheckAll size={20} color="rgb(83, 189, 235)" />
                       </span>
                     </span>
@@ -298,19 +324,38 @@ const HomePage = () => {
                     <Icon.Paperclip onClick={handleClipping} size={25} />
                     {isClipping && (
                       <div className="d-flex files flex-column">
-                        <span className="mt-3 clip-image ">
+                        <label htmlFor="image">
+                          <span className=" clip-image ">
+                            {" "}
+                            <Icon.ImageFill size={30} />
+                          </span>
+                        </label>
+                        <input
+                          id="image"
+                          type="file"
+                          style={{ visibility: "hidden" }}
+                          label="Change profile picture"
+                          //   onChange={handleAvatar}
+                        />
+                        <span className=" clip-camera ">
                           {" "}
-                          <Icon.ImageFill size={30} className="my-3" />
+                          <Icon.CameraFill size={30} />
                         </span>
-                        <span className="mt-3 clip-camera ">
-                          {" "}
-                          <Icon.CameraFill size={30} className="my-3" />
-                        </span>
-                        <span className="mt-3 clip-file ">
-                          {" "}
-                          <Icon.FileEarmarkFill size={30} className="my-3" />
-                        </span>
-                        <span className="mt-3 clip-contact ">
+                        <label htmlFor="file">
+                          <span className="mt-4 clip-file ">
+                            {" "}
+                            <Icon.FileEarmarkFill size={30} />
+                          </span>
+                        </label>
+                        <input
+                          id="file"
+                          type="file"
+                          style={{ visibility: "hidden" }}
+                          label="Change profile picture"
+                          //   onChange={handleAvatar}
+                        />
+
+                        <span className="clip-contact ">
                           {" "}
                           <Icon.PersonFill size={30} />
                         </span>
