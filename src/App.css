@@ -355,3 +355,7 @@ body {
     transparent
   );
 }
+.chat-closed {
+  height: 100vh;
+  background-color: rgb(34, 46, 53);
+}

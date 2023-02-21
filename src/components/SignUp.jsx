@@ -63,7 +63,7 @@ const SignUp = ({ signIn }) => {
           Password and Confirm Password do not match
         </Alert>
       )}
-      {/* **********************************DO NOT DELETE ME */}
+      {/* //TODO**********************************DO NOT DELETE ME */}
       {/* {isLoading && signUp && (
             <div className="  d-flex justify-content-center">
               {" "}
