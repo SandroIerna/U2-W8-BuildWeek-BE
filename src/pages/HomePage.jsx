@@ -3,12 +3,14 @@ import Avatar from "../components/Avatar";
 import * as Icon from "react-bootstrap-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import WebCam from "../components/WebCam";
 
 const HomePage = () => {
   // ****************STATES*****************
   const [name, setName] = useState("Louis");
   const [about, setAbout] = useState("Eagle all the way");
   const [isSearch, setIsSearch] = useState(false);
+  const [isCamera, setIsCamera] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingAbout, setIsEditingAbout] = useState(false);
@@ -18,6 +20,8 @@ const HomePage = () => {
   const handleSearch = () => {
     setIsSearch(true);
   };
+  const handleCamera = () =>
+    isCamera ? setIsCamera(false) : setIsCamera(true);
   const handleClipping = () => {
     isClipping ? setIsClipping(false) : setIsClipping(true);
   };
@@ -339,7 +343,8 @@ const HomePage = () => {
                         />
                         <span className=" clip-camera ">
                           {" "}
-                          <Icon.CameraFill size={30} />
+                          {isCamera && <WebCam hide={handleCamera} />}
+                          <Icon.CameraFill onClick={handleCamera} size={30} />
                         </span>
                         <label htmlFor="file">
                           <span className="mt-4 clip-file ">

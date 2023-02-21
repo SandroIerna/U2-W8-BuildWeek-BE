@@ -75,6 +75,7 @@ body {
 .user-bar {
   background-color: rgb(32, 44, 51);
   height: 70px;
+  z-index: 3;
 }
 .search-bar input,
 .search-bar input:active,
