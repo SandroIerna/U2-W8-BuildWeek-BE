@@ -7,6 +7,7 @@ import WebCam from "../components/WebCam";
 import ChatRoom from "../components/ChatRoom";
 import SearchChatsResults from "../components/SearchChatsResults";
 import ClosedChat from "../components/ClosedChat";
+import MySettings from "../components/MySettings";
 
 const HomePage = () => {
   // ****************STATES*****************
@@ -27,12 +28,13 @@ const HomePage = () => {
   const handleClosedChat = () => {
     setIsChatClosed(true);
   };
+
   const handleCamera = () =>
     isCamera ? setIsCamera(false) : setIsCamera(true);
   const handleClipping = () => {
     isClipping ? setIsClipping(false) : setIsClipping(true);
   };
-  console.log(isChatClosed);
+
   return (
     <Container fluid className="home-page">
       <Row>
@@ -117,6 +119,7 @@ const HomePage = () => {
                   </div>
                 );
               })}
+              {/* <MySettings /> */}
             </div>
           )}
           <div className={`my-profile ${isProfile ? "show" : ""}`}>
@@ -230,7 +233,7 @@ const HomePage = () => {
           </div>
         </Col>
         <Col md={8} className="main-chat-messages px-0">
-          {isChatClosed && <ClosedChat handleClosedChat={handleClosedChat} />}
+          {isChatClosed && <ClosedChat />}
           {!isSearch && !isChatClosed && (
             // <div>
             //   <div className=" user-bar profile  d-flex justify-content-between py-3 px-3 align-items-center">
@@ -397,12 +400,15 @@ const HomePage = () => {
             //     </div>
             //   </div>
             // </div>
-            <ChatRoom handleSearch={handleSearch} />
+            <ChatRoom
+              handleSearch={handleSearch}
+              handleClosedChat={handleClosedChat}
+            />
           )}
           <div className={`search-messages ${isSearch ? "show" : ""}`}>
             <div className="user-bar d-flex  py-4 px-3 align-items-center">
               <Icon.X onClick={() => setIsSearch(false)} size={30} />
-              <span className="ml-5">Seach Messages</span>
+              <span className="ml-5">Search Messages</span>
             </div>
             <Form.Group className="mb-3 mx-4 mt-2 search-bar">
               <Form.Control
