@@ -9,7 +9,9 @@ export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
 export const GET_ME = "GET_ME";
 export const GET_ME_LOADING = "GET_ME_LOADING";
 export const GET_ME_ERROR = "GET_ME_ERROR";
-
+export const GET_ALL_CHAT = "GET_ALL_CHAT";
+export const GET_ALL_CHAT_LOADING = "GET_ALL_CHAT_LOADING";
+export const GET_ALL_CHAT_ERROR = "GET_ALL_CHAT_ERROR";
 export const GET_LOGIN_ACCESSTOKEN = "GET_LOGIN_ACCESSTOKEN";
 export const GET_LOGIN_ACCESSTOKEN_LOADING = "GET_LOGIN_ACCESSTOKEN_LOADING";
 export const GET_LOGIN_ACCESSTOKEN_ERROR = "GET_LOGIN_ACCESSTOKEN_ERROR";
@@ -20,11 +22,12 @@ export const GET_ADMIN_LOGIN_ACCESSTOKEN_LOADING =
 export const GET_ADMIN_LOGIN_ACCESSTOKEN_ERROR =
   "GET_ADMIN_LOGIN_ACCESSTOKEN_ERROR";
 
-export const POST_TOURNAMENT = " POST_TOURNAMENT";
+export const POST_MESSAGES = " POST_MESSAGES";
+export const CREATE_CHAT = " CREATE_CHAT";
 export const GET_USERS = "GET_USERS";
-export const GET_TOURNAMENTS = "GET_TOURNAMENTS";
-export const GET_TOURNAMENTS_LOADING = "GET_TOURNAMENTS_LOADING";
-export const GET_TOURNAMENTS_ERROR = "GET_TOURNAMENTS_ERROR";
+export const GET_ALL_CHAT_MESSAGES = "GET_ALL_CHAT_MESSAGES";
+export const GET_ALL_CHAT_MESSAGES_LOADING = "GET_ALL_CHAT_MESSAGES_LOADING";
+export const GET_ALL_CHAT_MESSAGES_ERROR = "GET_ALL_CHAT_MESSAGES_ERROR";
 export const GET_USERS_LOADING = "GET_USERS_LOADING";
 export const GET_USERS_ERROR = "GET_USERS_ERROR";
 export const USER_PREFERENCE_DATA = " USER_PREFERENCE_DATA";
@@ -95,26 +98,58 @@ export const registerUser = (userData) => {
     }
   };
 };
-export const createTournament = (data) => {
+export const postMessage = (data, accessToken, chatId) => {
   return async (dispatch) => {
     const options = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(data),
     };
-    const URL = process.env.REACT_APP_BE_PROD_URL;
+    const URL = process.env.REACT_APP_BE_DEV_URL;
     try {
-      const response = await fetch(`${URL}/tournaments`, options);
+      const response = await fetch(
+        `${URL}/messages/${chatId}/message`,
+        options
+      );
       if (response.ok) {
-        const tournament = await response.json();
+        const message = await response.json();
         getUsers(`${URL}/users?limit=10`);
-        getTournaments();
+
         dispatch({
-          type: POST_TOURNAMENT,
-          payload: tournament,
+          type: POST_MESSAGES,
+          payload: message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const createChat = (data, accessToken) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ receiver: [data] }),
+    };
+    const URL = process.env.REACT_APP_BE_DEV_URL;
+    try {
+      const response = await fetch(`${URL}/chats/me/chats`, options);
+      if (response.ok) {
+        const chat = await response.json();
+        console.log(chat);
+
+        dispatch({
+          type: CREATE_CHAT,
+          payload: chat,
         });
       }
     } catch (error) {
@@ -193,50 +228,18 @@ export const signIn = (data) => {
     }
   };
 };
-export const logout = (userId) => {
-  return async (dispatch) => {
-    const options = {
-      method: "GET",
-    };
-    const URL = process.env.REACT_APP_BE_PROD_URL;
-    try {
-      const response = await fetch(`${URL}/users/logout/${userId}`, options);
-      if (response.ok) {
-        const accessToken = await response.json();
-        dispatch({
-          type: GET_LOGIN_ACCESSTOKEN,
-          payload: accessToken,
-        });
-        setTimeout(() => {
-          dispatch({
-            type: GET_LOGIN_ACCESSTOKEN_LOADING,
-            payload: false,
-          });
-        }, 100);
-      } else {
-        console.log("error");
-
-        dispatch({
-          type: GET_LOGIN_ACCESSTOKEN_LOADING,
-          payload: false,
-        });
-        dispatch({
-          type: GET_LOGIN_ACCESSTOKEN_ERROR,
-          payload: true,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+export const logout = () => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_LOGIN_ACCESSTOKEN,
+      payload: "",
+    });
+    setTimeout(() => {
       dispatch({
         type: GET_LOGIN_ACCESSTOKEN_LOADING,
         payload: false,
       });
-
-      dispatch({
-        type: GET_LOGIN_ACCESSTOKEN_ERROR,
-        payload: true,
-      });
-    }
+    }, 100);
   };
 };
 export const adminSignIn = (data) => {
@@ -310,7 +313,6 @@ export const registerTournament = (data, tournamentId) => {
       if (response.ok) {
         // const tournament = await response.json();
         // getUsers(`${URL}/users?limit=10`);
-        getTournaments();
       }
     } catch (error) {
       console.log(error);
@@ -337,23 +339,49 @@ export const deleteUser = (id, accessToken) => {
     }
   };
 };
-export const getTournaments = () => {
+export const deleteMessage = (chatId, id, accessToken) => {
+  return async () => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const URL = process.env.REACT_APP_BE_DEV_URL;
+    try {
+      const response = await fetch(
+        `${URL}/messages/${chatId}/message/${id}`,
+        options
+      );
+      console.log(response.ok);
+      if (response.ok || response === 204) {
+        getAllMessagesChat(chatId, accessToken);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const getAllMessagesChat = (chatId, accessToken) => {
   return async (dispatch) => {
     const options = {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
-    const URL = process.env.REACT_APP_BE_PROD_URL;
+    const URL = process.env.REACT_APP_BE_DEV_URL;
     try {
-      let response = await fetch(`${URL}/tournaments`, options);
+      let response = await fetch(`${URL}/messages/${chatId}`, options);
       if (response.ok) {
-        const tournaments = await response.json();
+        const messages = await response.json();
         dispatch({
-          type: GET_TOURNAMENTS,
-          payload: tournaments,
+          type: GET_ALL_CHAT_MESSAGES,
+          payload: messages,
         });
         setTimeout(() => {
           dispatch({
-            type: GET_TOURNAMENTS_LOADING,
+            type: GET_ALL_CHAT_MESSAGES_LOADING,
             payload: false,
           });
         }, 100);
@@ -361,11 +389,11 @@ export const getTournaments = () => {
         console.log("error");
 
         dispatch({
-          type: GET_TOURNAMENTS_LOADING,
+          type: GET_ALL_CHAT_MESSAGES_LOADING,
           payload: false,
         });
         dispatch({
-          type: GET_TOURNAMENTS_ERROR,
+          type: GET_ALL_CHAT_MESSAGES_ERROR,
           payload: true,
         });
       }
@@ -373,12 +401,12 @@ export const getTournaments = () => {
       console.log(error);
 
       dispatch({
-        type: GET_TOURNAMENTS_LOADING,
+        type: GET_ALL_CHAT_MESSAGES_LOADING,
         payload: false,
       });
 
       dispatch({
-        type: GET_TOURNAMENTS_ERROR,
+        type: GET_ALL_CHAT_MESSAGES_ERROR,
         payload: true,
       });
     }
@@ -437,6 +465,59 @@ export const getUsers = (accessToken) => {
     }
   };
 };
+export const getAllChats = (accessToken) => {
+  return async (dispatch) => {
+    // const URL = process.env.REACT_APP_BE_PROD_URL;
+    const URL = process.env.REACT_APP_BE_DEV_URL;
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    try {
+      let response = await fetch(`${URL}/chats/me/chats`, options);
+      if (response.ok) {
+        const allChats = await response.json();
+        dispatch({
+          type: GET_ALL_CHAT,
+          payload: allChats,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: GET_ALL_CHAT_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: GET_ALL_CHAT_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: GET_ALL_CHAT_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: GET_ALL_CHAT_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: GET_ALL_CHAT_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+
 export const getMe = (accessToken) => {
   return async (dispatch) => {
     const options = {
